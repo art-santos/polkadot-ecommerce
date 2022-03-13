@@ -1,36 +1,77 @@
 {
-    "compilerOptions": {
-        "target": "es5",
-        "lib": ["dom", "dom.iterable", "esnext"],
-        "allowJs": true,
-        "skipLibCheck": true,
-        "strict": true,
-        "forceConsistentCasingInFileNames": true,
-        "noEmit": true,
-        "esModuleInterop": true,
-        "module": "esnext",
-        "moduleResolution": "node",
-        "resolveJsonModule": true,
-        "isolatedModules": true,
-        "jsx": "preserve",
-        "baseUrl": ".",
-        "paths": {
-            "@definitions/*": ["src/definitions/*"],
-            "@definitions": ["src/definitions"],
-            "@components/*": ["src/components/*"],
-            "@components": ["src/components"],
-            "@public/*": ["public/*"],
-            "@public": ["public"],
-            "@styles/*": ["src/styles/*"],
-            "@styles": ["src/styles"],
-            "@components/icons/*": ["src/components/icons/*"],
-            "@components/icons": ["src/components/icons"],
-            "@recoil/*": ["src/recoil/*"],
-            "@recoil": ["src/recoil"],
-            "@test/*": ["test/*"],
-            "@test": ["test"]
-        }
+  "compilerOptions": {
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "baseUrl": ".",
+    "paths": {
+      "@definitions/*": [
+        "src/definitions/*"
+      ],
+      "@definitions": [
+        "src/definitions"
+      ],
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@components": [
+        "src/components"
+      ],
+      "@public/*": [
+        "public/*"
+      ],
+      "@public": [
+        "public"
+      ],
+      "@styles/*": [
+        "src/styles/*"
+      ],
+      "@styles": [
+        "src/styles"
+      ],
+      "@components/icons/*": [
+        "src/components/icons/*"
+      ],
+      "@components/icons": [
+        "src/components/icons"
+      ],
+      "@recoil/*": [
+        "src/recoil/*"
+      ],
+      "@recoil": [
+        "src/recoil"
+      ],
+      "@test/*": [
+        "test/*"
+      ],
+      "@test": [
+        "test"
+      ]
     },
-    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-    "exclude": ["node_modules", "test/*", "cypress/*"]
+    "incremental": true
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "test/*",
+    "cypress/*"
+  ]
 }

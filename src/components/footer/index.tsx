@@ -7,7 +7,7 @@ import {
     TwitterIcon,
     YoutubeIcon,
     LinkedinIcon,
-} from "@components/icons";
+} from "@components/atoms/icons";
 
 export const Footer: React.FC = () => {
     const iconStyle: CSSProperties = {
