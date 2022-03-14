@@ -1,6 +1,8 @@
 import { Flex, Box, Image, useColorModeValue } from "@chakra-ui/react";
 import { Button } from "@components/atoms/button";
-import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
+import { KusamaLogo, PolkadotLogoIcon } from "@components/atoms/icons";
+import { FaDollarSign } from "react-icons/fa";
+
 
 const data = {
     isNew: true,
@@ -12,44 +14,9 @@ const data = {
     numReviews: 34,
 };
 
-interface RatingProps {
-    rating: number;
-    numReviews: number;
-}
-
-function Rating({ rating, numReviews }: RatingProps) {
-    return (
-        <Box d="flex" alignItems="center">
-            {Array(5)
-                .fill("")
-                .map((_, i) => {
-                    const roundedRating = Math.round(rating * 2) / 2;
-                    if (roundedRating - i >= 1) {
-                        return (
-                            <BsStarFill
-                                key={i}
-                                style={{ marginLeft: "1" }}
-                                color={i < rating ? "teal.500" : "gray.300"}
-                            />
-                        );
-                    }
-                    if (roundedRating - i === 0.5) {
-                        return (
-                            <BsStarHalf key={i} style={{ marginLeft: "1" }} />
-                        );
-                    }
-                    return <BsStar key={i} style={{ marginLeft: "1" }} />;
-                })}
-            <Box as="span" ml="2" color="gray.600" fontSize="sm">
-                {numReviews} review{numReviews > 1 && "s"}
-            </Box>
-        </Box>
-    );
-}
-
 export function ProductCard(): JSX.Element {
     return (
-        <Flex p={10} w="full" alignItems="center" justifyContent="center">
+        <Flex p={1} w="full" alignItems="center" justifyContent="center">
             <Box
                 bg="white"
                 maxW="sm"
@@ -83,6 +50,8 @@ export function ProductCard(): JSX.Element {
                             as="h4"
                             lineHeight="tight"
                             isTruncated
+                            m="auto"
+                            pb="10px"
                         >
                             {data.name}
                         </Box>
@@ -93,39 +62,56 @@ export function ProductCard(): JSX.Element {
                         direction="column"
                         alignContent="center"
                     >
-                        <Box
+                        <Flex
                             fontSize="xl"
-                            fontWeight="700"
                             color="black.100"
+                            justify="space-around"
+                            alignItems="center"
                             m="auto"
+                            w="80%"
                         >
                             <Box as="span" color="gray.200" fontSize="md">
-                                dot
+                                <PolkadotLogoIcon
+                                    height="20px"
+                                    width="20px"
+                                    color="#e6007a"
+                                />
                             </Box>
-                            {data.price.toFixed(2)}
-                        </Box>
-                        <Box
+                            {data.price.toFixed(2)} (Dots)
+                        </Flex>
+                        <Flex
                             fontSize="xl"
-                            fontWeight="700"
                             color="black.100"
+                            justify="space-around"
+                            alignItems="center"
                             m="auto"
+                            w="80%"
                         >
                             <Box as="span" color="gray.200" fontSize="md">
-                                ksm
+                                <KusamaLogo
+                                    height="20px"
+                                    width="20px"
+                                    color="#e6007a"
+                                />
                             </Box>
-                            {data.price.toFixed(2)}
-                        </Box>
-                        <Box
+                            {data.price.toFixed(2)} (KSM)
+                        </Flex>
+                        <Flex
                             fontSize="xl"
-                            fontWeight="700"
                             color="black.100"
+                            justify="space-around"
+                            alignItems="center"
                             m="auto"
+                            w="80%"
                         >
                             <Box as="span" color="gray.200" fontSize="md">
-                                $
+                                <FaDollarSign
+                                    size={22}
+                                    style={{ color: "#e6007a" }}
+                                />
                             </Box>
-                            {data.price.toFixed(2)}
-                        </Box>
+                            {data.price.toFixed(2)} (U$D)
+                        </Flex>
                     </Flex>
                     <Flex
                         justifyContent="center"

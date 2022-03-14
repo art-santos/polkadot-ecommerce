@@ -1,12 +1,4 @@
-import {
-    Box,
-    Flex,
-    Heading,
-    HStack,
-    Link,
-    Stack,
-    useColorModeValue as mode,
-} from "@chakra-ui/react";
+import { Box, Flex, Stack, useColorModeValue as mode } from "@chakra-ui/react";
 import * as React from "react";
 import CheckoutForm from "../form";
 import { CartOrder } from "./CartOrderSummary";
