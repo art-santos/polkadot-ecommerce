@@ -2,30 +2,18 @@ import React from "react";
 
 import {
     chakra,
-    Box,
     Flex,
-    useColorModeValue,
-    VisuallyHidden,
     HStack,
-    Button,
     useDisclosure,
-    VStack,
-    IconButton,
-    CloseButton,
     InputGroup,
     InputLeftElement,
     Input,
-    Avatar,
+    Stack,
 } from "@chakra-ui/react";
 import { Logo } from "@components";
-import {
-    AiOutlineMenu,
-    AiFillHome,
-    AiOutlineInbox,
-    AiOutlineSearch,
-    AiFillBell,
-} from "react-icons/ai";
-import { BsFillCameraVideoFill } from "react-icons/bs";
+import { AiOutlineSearch } from "react-icons/ai";
+import { MdOutlineAccountBalanceWallet } from "react-icons/md";
+import { Button } from "@components/atoms/button";
 
 export const Header = () => {
     const mobileNav = useDisclosure();
@@ -37,7 +25,8 @@ export const Header = () => {
                 w="100%"
                 px={{ base: 2, sm: 4 }}
                 py={4}
-                shadow="md"
+                borderBottomColor="gray.100"
+                borderBottomWidth="1px"
             >
                 <Flex
                     alignItems="center"
@@ -56,25 +45,56 @@ export const Header = () => {
                             <Logo />
                         </chakra.a>
                     </HStack>
-                    <HStack
+                    <Stack
                         spacing={[0, 3]}
                         display={mobileNav.isOpen ? "none" : "flex"}
                         alignItems="center"
+                        w={["100%", "40%"]}
+                        pb={["16px", "0px"]}
                     >
                         <InputGroup>
                             <InputLeftElement pointerEvents="none">
-                                <AiOutlineSearch color="main.100" />
+                                <AiOutlineSearch
+                                    size={30}
+                                    style={{
+                                        color: "#e6007a",
+                                        paddingTop: "8px",
+                                    }}
+                                />
                             </InputLeftElement>
                             <Input
                                 type="text"
                                 placeholder="Search..."
+                                transition="all 0.05s"
+                                border="1px solid green"
+                                height="3rem"
                                 _focus={{
-                                    border: "3px solid #e6007a",
+                                    borderColor: "main.100",
+                                    borderWidth: "3px",
                                     boxShadow: "sm",
+                                    transition: "all 0.05s",
                                 }}
                             />
                         </InputGroup>
-                    </HStack>
+                    </Stack>
+                    <Stack
+                        spacing={[0, 3]}
+                        display={mobileNav.isOpen ? "none" : "flex"}
+                        alignItems="center"
+                    >
+                        <Button
+                            size="lg"
+                            fontWeight="700"
+                            flex={{ md: "1" }}
+                            bgColor="main.100"
+                            color="white"
+                            py="16px"
+                            px="20px"
+                            leftIcon={<MdOutlineAccountBalanceWallet />}
+                        >
+                            Connect Wallet
+                        </Button>
+                    </Stack>
                 </Flex>
             </chakra.header>
         </React.Fragment>

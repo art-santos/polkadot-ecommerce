@@ -12,6 +12,20 @@ export default {
             p: {
                 marginBottom: "1em",
             },
+            input: {
+                borderRadius: "1.5rem !important",
+                border: "1px solid gray.200 !important",
+            },
+            button: {
+                borderRadius: "1.5rem !important",
+                fontFamily: "Work Sans, sans-serif",
+            },
+            a: {
+                borderRadius: "1.5rem !important",
+            },
+            footer: {
+                bgColor: "gray.100 !important",
+            },
         },
     },
 } as GlobalStyles;

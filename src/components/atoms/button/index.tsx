@@ -6,7 +6,32 @@ export type IButton = ButtonProps;
 export const Button: React.FC<IButton> = ({ ...rest }) => {
     return (
         <div>
-            <BaseButton {...rest} data-testid="btn" />
+            <BaseButton
+                {...rest}
+                data-testid="btn"
+                _hover={{
+                    color: "main.100",
+                    bg: "white",
+                    borderColor: "main.100",
+                    borderWidth: "3px",
+                }}
+                _active={{
+                    boxShadow: "none",
+                    outline: "none",
+                    color: "white",
+                    bg: "pink.200",
+                    borderColor: "pink.200",
+                    borderWidth: "3px",
+                }}
+                _focus={{
+                    boxShadow: "none",
+                    outline: "none",
+                    color: "white",
+                    bg: "main.100",
+                    borderColor: "main.100",
+                    borderWidth: "3px",
+                }}
+            />
         </div>
     );
 };
