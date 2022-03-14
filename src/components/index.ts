@@ -2,8 +2,9 @@
 export { Button } from "./atoms/button";
 export { Logo } from "./atoms/logo";
 
-//
-export { Header } from "./header";
-export { Main } from "./main";
-export { Cards } from "./cards";
-export { Footer } from "./footer";
+//MOLECULES
+export { Cards } from "./molecules/cards";
+
+//ORGANISMS
+export { Header } from "./organisms/header";
+export { Footer } from "./organisms/footer";

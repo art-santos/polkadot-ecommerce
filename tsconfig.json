@@ -44,10 +44,10 @@
         "src/styles"
       ],
       "@components/icons/*": [
-        "src/components/icons/*"
+        "src/components/atoms/icons/*"
       ],
       "@components/icons": [
-        "src/components/icons"
+        "src/components/atoms/icons"
       ],
       "@recoil/*": [
         "src/recoil/*"
