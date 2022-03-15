@@ -1,8 +1,9 @@
 import { TemplateSuccess } from "src/templates";
 import { useRouter } from "next/router";
 import React from "react";
+import { DefaultHead } from "@components/atoms/Head";
 
-export default function Success(): JSX.Element {
+export const Success: React.FC = (): JSX.Element => {
     const router = useRouter();
 
     React.useEffect(() => {
@@ -11,5 +12,12 @@ export default function Success(): JSX.Element {
         }, 5000);
     }, []);
 
-    return <TemplateSuccess />;
-}
+    return (
+        <>
+            <DefaultHead title="Success" />
+            <TemplateSuccess />
+        </>
+    );
+};
+
+export default Success;

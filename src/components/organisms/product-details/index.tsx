@@ -8,130 +8,132 @@ import {
     VStack,
     Heading,
     SimpleGrid,
-    StackDivider,
-    useColorModeValue,
-    Badge,
 } from "@chakra-ui/react";
 import { Button } from "@components/atoms/button";
+import { PriceTag } from "@components/atoms/price-tag";
+import { useCurrencyPrice, useProductInfo } from "@recoil/hooks";
+import { useRouter } from "next/router";
+import Cookies from "universal-cookie";
 
-export default function ProductDetails(): JSX.Element {
-    return (
-        <Container maxW={"7xl"}>
-            <SimpleGrid
-                columns={{ base: 1, lg: 2 }}
-                spacing={{ base: 8, md: 10 }}
-                py={{ base: 18, md: 24 }}
-            >
-                <Flex>
-                    <Image
-                        rounded={"md"}
-                        alt={"product image"}
-                        src={
-                            "https://images.unsplash.com/photo-1596516109370-29001ec8ec36?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyODE1MDl8MHwxfGFsbHx8fHx8fHx8fDE2Mzg5MzY2MzE&ixlib=rb-1.2.1&q=80&w=1080"
-                        }
-                        fit={"cover"}
-                        align={"center"}
-                        w={"100%"}
-                        h={{ base: "100%", sm: "400px", lg: "500px" }}
-                    />
-                </Flex>
-                <Stack spacing={{ base: 6, md: 10 }}>
-                    <Box as={"header"}>
-                        <Heading
-                            lineHeight={1.1}
-                            fontWeight={600}
-                            fontSize={{ base: "2xl", sm: "4xl", lg: "5xl" }}
+const cookies = new Cookies();
+
+export default function ProductDetails() {
+    const { polkadot, kusama, loading, error } = useCurrencyPrice();
+    const router = useRouter();
+
+    //router get route
+    const handleCheckout = (id: string): void => {
+        cookies.set("item", id, { path: "/checkout" });
+        router.push("/checkout");
+    };
+
+    if (loading) {
+        return <Box>Loading...</Box>;
+    }
+    if (error) {
+        return <Box>Error: {error}</Box>;
+    }
+
+    if (router.query.id) {
+        console.log(router.query.id);
+        const id = router.query.id;
+        const {
+            product,
+            loading: loadingProduct,
+            error: errorProduct,
+        } = useProductInfo(id.toString());
+        console.log(product);
+
+        return (
+            <Container maxW={"7xl"}>
+                <SimpleGrid
+                    columns={{ base: 1, lg: 2 }}
+                    spacing={{ base: 8, md: 10 }}
+                    py={{ base: 18, md: 24 }}
+                >
+                    <Flex>
+                        <Image
+                            rounded={"md"}
+                            alt={"product image"}
+                            src={product.image}
+                            fit={"cover"}
+                            align={"center"}
+                            w={"100%"}
+                            h={{ base: "100%", sm: "400px", lg: "500px" }}
+                        />
+                    </Flex>
+                    <Stack spacing={{ base: 6, md: 10 }}>
+                        <Box as={"header"}>
+                            <Heading
+                                lineHeight={1.5}
+                                fontWeight={600}
+                                fontSize={{ base: "2xl", sm: "5xl", lg: "5xl" }}
+                            >
+                                {product.title}
+                            </Heading>
+                            {polkadot && kusama && (
+                                <Flex
+                                    direction={["row"]}
+                                    py={4}
+                                    alignItems="center"
+                                >
+                                    <PriceTag
+                                        price={product.price}
+                                        currency="Polkadot"
+                                        exchange={polkadot.polkadot.usd}
+                                        size="2xl"
+                                    />
+                                    <PriceTag
+                                        price={product.price}
+                                        currency="Kusama"
+                                        exchange={kusama.kusama.usd}
+                                        size="2xl"
+                                    />
+                                    <PriceTag
+                                        price={product.price}
+                                        currency="Dolar"
+                                        exchange={1}
+                                        size="2xl"
+                                    />
+                                </Flex>
+                            )}
+                        </Box>
+
+                        <Stack
+                            spacing={{ base: 4, sm: 6 }}
+                            direction={"column"}
                         >
-                            Automatic Watch
-                        </Heading>
-                        <Flex direction={["column", "row"]} alignItems="center" >
-                            <Badge
-                                borderRadius="16px"
-                                fontWeight={300}
-                                fontSize={"2xl"}
-                            >
-                                $350.00 USD
-                            </Badge>
-                            <Badge
-                                borderRadius="16px"
-                                fontWeight={300}
-                                fontSize={"2xl"}
-                            >
-                                0.10 KSM
-                            </Badge>
-                            <Badge
-                                borderRadius="16px"
-                                fontWeight={300}
-                                fontSize={"2xl"}
-                            >
-                                0.01 DOT
-                            </Badge>
-                        </Flex>
-                    </Box>
+                            <VStack spacing={{ base: 4, sm: 6 }}>
+                                <Text fontSize={"lg"}>
+                                    {product.description}
+                                </Text>
+                            </VStack>
+                        </Stack>
 
-                    <Stack
-                        spacing={{ base: 4, sm: 6 }}
-                        direction={"column"}
-                        divider={
-                            <StackDivider
-                                borderColor={useColorModeValue(
-                                    "gray.200",
-                                    "gray.600",
-                                )}
-                            />
-                        }
-                    >
-                        <VStack spacing={{ base: 4, sm: 6 }}>
-                            <Text
-                                color={useColorModeValue(
-                                    "gray.500",
-                                    "gray.400",
-                                )}
-                                fontSize={"2xl"}
-                                fontWeight={"300"}
-                            >
-                                Lorem ipsum dolor sit amet, consetetur
-                                sadipscing elitr, sed diam nonumy eirmod tempor
-                                invidunt ut labore
-                            </Text>
-                            <Text fontSize={"lg"}>
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipisicing elit. Ad aliquid amet at delectus
-                                doloribus dolorum expedita hic, ipsum maxime
-                                modi nam officiis porro, quae, quisquam quos
-                                reprehenderit velit? Natus, totam.
-                            </Text>
-                        </VStack>
+                        <Button
+                            rounded={"none"}
+                            w={"full"}
+                            mt={8}
+                            size={"lg"}
+                            py={"7"}
+                            bg="main.100"
+                            color="white"
+                            textTransform={"uppercase"}
+                            cursor="pointer"
+                            onClick={() => handleCheckout(product.id)}
+                        >
+                            Buy Now
+                        </Button>
+
+                        <Stack
+                            direction="row"
+                            alignItems="center"
+                            justifyContent={"center"}
+                        ></Stack>
                     </Stack>
-
-                    <Button
-                        as="a"
-                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                        //@ts-ignore
-                        href="/checkout"
-                        rounded={"none"}
-                        w={"full"}
-                        mt={8}
-                        size={"lg"}
-                        py={"7"}
-                        bg="main.100"
-                        color="white"
-                        textTransform={"uppercase"}
-                        _hover={{
-                            transform: "translateY(2px)",
-                            boxShadow: "lg",
-                        }}
-                    >
-                        Buy Now
-                    </Button>
-
-                    <Stack
-                        direction="row"
-                        alignItems="center"
-                        justifyContent={"center"}
-                    ></Stack>
-                </Stack>
-            </SimpleGrid>
-        </Container>
-    );
+                </SimpleGrid>
+            </Container>
+        );
+    }
+    return <Box>No product selected</Box>;
 }

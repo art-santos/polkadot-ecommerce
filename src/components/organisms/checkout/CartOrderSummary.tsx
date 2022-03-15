@@ -1,34 +1,25 @@
-import {
-    Flex,
-    Heading,
-    Stack,
-    Text,
-    useColorModeValue as mode,
-} from "@chakra-ui/react";
+import { Flex, Heading, Spinner, Stack, Text } from "@chakra-ui/react";
 import { Button } from "@components/atoms/button";
+import { PriceTag } from "@components/atoms/price-tag";
 import * as React from "react";
 import { FaDollarSign } from "react-icons/fa";
-import { formatPrice } from "./PriceTag";
+import { OrderItem } from "./OrderItem";
+import { useCurrencyPrice, useProductInfo } from "@recoil/hooks";
+import Cookies from "universal-cookie";
 
-type OrderSummaryItemProps = {
-    label: string;
-    value?: string;
-    children?: React.ReactNode;
-};
+export const CartOrder = (): JSX.Element => {
+    const cookie = new Cookies();
+    const { product, loading, error } = useProductInfo(cookie.get("item"));
+    const { loading: loadingCurrency } = useCurrencyPrice();
 
-const OrderSummaryItem = (props: OrderSummaryItemProps) => {
-    const { label, value, children } = props;
-    return (
-        <Flex justify="space-between" fontSize="sm">
-            <Text fontWeight="medium" color={mode("gray.600", "gray.400")}>
-                {label}
-            </Text>
-            {value ? <Text fontWeight="medium">{value}</Text> : children}
-        </Flex>
-    );
-};
+    if (loading) {
+        return <Heading>Loading...</Heading>;
+    }
 
-export const CartOrder = () => {
+    if (error) {
+        return <Heading>Error!</Heading>;
+    }
+
     return (
         <Stack
             spacing="8"
@@ -39,30 +30,62 @@ export const CartOrder = () => {
             width="full"
         >
             <Heading size="md">Order</Heading>
+            {product ? (
+                <>
+                    <Stack spacing="6">
+                        <OrderItem
+                            label="Total DOT"
+                            price={product.price}
+                            currency={"Polkadot"}
+                        />
+                        <OrderItem
+                            label="Total KSM"
+                            price={product.price}
+                            currency={"Kusama"}
+                        />
 
-            <Stack spacing="6">
-                <OrderSummaryItem label="Total KSM" value={formatPrice(597)} />
-                <OrderSummaryItem label="Total DOTS" value={formatPrice(597)} />
-
-                <Flex justify="space-between">
-                    <Text fontSize="lg" fontWeight="semibold">
-                        Total
-                    </Text>
-                    <Text fontSize="xl" fontWeight="extrabold">
-                        {formatPrice(597)}
-                    </Text>
+                        <Flex justify="space-between">
+                            <Text fontSize="lg" fontWeight="semibold">
+                                Total
+                            </Text>
+                            <Text fontSize="xl" fontWeight="extrabold">
+                                <PriceTag
+                                    exchange={1}
+                                    size="2xl"
+                                    price={product.price}
+                                    currency="Dolar"
+                                />
+                            </Text>
+                        </Flex>
+                    </Stack>
+                    {!loadingCurrency ? (
+                        <Button
+                            bg="main.100"
+                            color="white"
+                            w="full"
+                            size="lg"
+                            fontSize="md"
+                            leftIcon={<FaDollarSign />}
+                        >
+                            Buy Now
+                        </Button>
+                    ) : (
+                        <>
+                            <Flex justify="center" align="center">
+                                <Spinner
+                                    color="main.100"
+                                    thickness="4px"
+                                    size="lg"
+                                />
+                            </Flex>
+                        </>
+                    )}
+                </>
+            ) : (
+                <Flex justify="center" align="center">
+                    <Spinner color="main.100" thickness="5px" size="xl" />
                 </Flex>
-            </Stack>
-            <Button
-                bg="main.100"
-                color="white"
-                w="full"
-                size="lg"
-                fontSize="md"
-                leftIcon={<FaDollarSign />}
-            >
-                Buy Now
-            </Button>
+            )}
         </Stack>
     );
 };

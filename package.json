@@ -28,7 +28,9 @@
         "react-dom": "17.0.2",
         "react-icons": "^4.3.1",
         "react-query": "^3.5.16",
-        "recoil": "^0.1.2"
+        "recoil": "^0.1.2",
+        "swr": "^1.2.2",
+        "universal-cookie": "^4.0.4"
     },
     "devDependencies": {
         "@svgr/cli": "^5.5.0",

@@ -3,7 +3,6 @@ export { Button } from "./atoms/button";
 export { Logo } from "./atoms/logo";
 
 //MOLECULES
-export { Cards } from "./molecules/cards";
 
 //ORGANISMS
 export { Header } from "./organisms/header";

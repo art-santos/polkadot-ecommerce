@@ -9,7 +9,11 @@ import {
 import { FaMailBulk } from "react-icons/fa";
 import { Button } from "@components/atoms/button";
 
-export default function CheckoutForm(): JSX.Element {
+export default function CheckoutForm({
+    email,
+    setEmail,
+    setEmailSuccess,
+}): JSX.Element {
     return (
         <Stack
             spacing={4}
@@ -40,6 +44,8 @@ export default function CheckoutForm(): JSX.Element {
                         boxShadow: "sm",
                         transition: "all 0.05s",
                     }}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                 />
             </FormControl>
             <Stack spacing={6}>
@@ -51,6 +57,7 @@ export default function CheckoutForm(): JSX.Element {
                     _hover={{
                         bg: "main.200",
                     }}
+                    onClick={() => setEmailSuccess(true)}
                     leftIcon={<FaMailBulk />}
                 >
                     Submit Mail

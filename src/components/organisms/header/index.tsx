@@ -14,8 +14,11 @@ import { Logo } from "@components";
 import { AiOutlineSearch } from "react-icons/ai";
 import { MdOutlineAccountBalanceWallet } from "react-icons/md";
 import { Button } from "@components/atoms/button";
+import { useRouter } from "next/router";
 
 export const Header = () => {
+    const router = useRouter();
+
     const mobileNav = useDisclosure();
 
     return (
@@ -44,7 +47,7 @@ export const Header = () => {
                         >
                             <Logo />
                         </chakra.a>
-                    </HStack>
+                    </HStack> 
                     <Stack
                         spacing={[0, 3]}
                         display={mobileNav.isOpen ? "none" : "flex"}
