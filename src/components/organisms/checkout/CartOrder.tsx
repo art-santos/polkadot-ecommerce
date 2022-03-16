@@ -24,7 +24,6 @@ import { MdOutlineAccountBalanceWallet } from "react-icons/md";
 import { Loading } from "./Loading";
 import { SelectNetwork } from "./SelectNetwork";
 import { SelectAccount } from "./SelectAccount";
-import { DisabledButtonPay } from "./DisabledButtonPay";
 
 export const CartOrder = ({
     setTransactionHash,
@@ -49,14 +48,6 @@ export const CartOrder = ({
     }
 
     if (product) {
-        React.useCallback(() => {
-            setPolkadotTokens(
-                (product.price / polkadot.polkadot.usd) * 1000000,
-            );
-            setKusamaTokens(
-                (product.price / kusama.kusama.usd) * 1000000000000,
-            );
-        }, [product]);
         return (
             <Stack
                 spacing="8"
@@ -109,7 +100,6 @@ export const CartOrder = ({
                         )}
                         {!loadingCurrency ? (
                             connected ? (
-                                sender && network ? (
                                     <ButtonPay
                                         accounts={accounts}
                                         sender={sender}
@@ -119,13 +109,15 @@ export const CartOrder = ({
                                         polkadotTokens={polkadotTokens}
                                         kusamaTokens={kusamaTokens}
                                     />
-                                ) : (
-                                    <DisabledButtonPay />
-                                )
                             ) : (
                                 <ButtonConnect
                                     setAccounts={setAccounts}
                                     setConnected={setConnected}
+                                    setPolkadotTokens={setPolkadotTokens}
+                                    setKusamaTokens={setKusamaTokens}
+                                    polkadot={polkadot}
+                                    kusama={kusama}
+                                    product={product}
                                 />
                             )
                         ) : (
@@ -147,7 +139,7 @@ export default CartOrder;
 
 //-----------------------------------------------------------
 //Connect Account
-const ButtonConnect = ({ setAccounts, setConnected }) => {
+const ButtonConnect = ({ setAccounts, setConnected, setPolkadotTokens, setKusamaTokens, polkadot, kusama, product }) => {
     const handleConnect = async (): Promise<void> => {
         try {
             if (web3Enable) {
@@ -162,6 +154,12 @@ const ButtonConnect = ({ setAccounts, setConnected }) => {
                 setAccounts(accounts);
                 setConnected(true);
             });
+            setPolkadotTokens(
+                (product.price / polkadot.polkadot.usd) * 1000000,
+            );
+            setKusamaTokens(
+                (product.price / kusama.kusama.usd) * 1000000000000,
+            );
         } catch (e) {
             console.log(e);
         }
@@ -229,7 +227,7 @@ const ButtonPay = ({
             fontSize="md"
             leftIcon={<FaDollarSign />}
             onClick={handlePay}
-            disabled={!sender}
+            disabled={!sender || !network}
         >
             Pay
         </Button>
