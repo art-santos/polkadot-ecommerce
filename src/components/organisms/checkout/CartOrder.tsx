@@ -192,16 +192,12 @@ const ButtonPay = ({
 }) => {
     const { kusamaTokens, polkadotTokens } = React.useContext(PriceContext);
 
-    console.log(network);
-
     const handlePay = async (): Promise<void> => {
         const provider = new WsProvider(network);
 
         const polkadotApi = await ApiPromise.create({
             provider: provider,
         });
-
-        console.log(polkadotApi);
 
         const transferExtrinsic = polkadotApi.tx.balances.transfer(
             "5F6uW9oe3EPDDvz813WwYPtbwQkJLPsyJhNK3r1fJ79gf6GG",
@@ -216,8 +212,6 @@ const ButtonPay = ({
                 ({ status }) => {
                     if (status.isInBlock) {
                         setTransactionHash(status.asInBlock.toString());
-                    } else {
-                        console.log(`Current status: ${status.type}`);
                     }
                 },
             )

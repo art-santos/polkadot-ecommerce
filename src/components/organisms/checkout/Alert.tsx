@@ -27,7 +27,6 @@ export const TransactionMessage = ({ transactionHash, paymentError }) => {
     }, [transactionHash, paymentError]);
 
     const handleClick = () => {
-        console.log('a')
         if (transactionHash) {
             router.push("/success");
         } else {

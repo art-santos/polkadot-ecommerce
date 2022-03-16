@@ -3,7 +3,6 @@ import { Header } from "@components/";
 import ProductDetails from "@components/organisms/product-details";
 
 export const TemplateProduct = ({ id }): JSX.Element => {
-    console.log(id);
     return (
         <>
             <Header />
