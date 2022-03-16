@@ -1,10 +1,15 @@
 import { Flex } from "@chakra-ui/react";
+import { Header } from "@components/";
 import ProductDetails from "@components/organisms/product-details";
 
-export const TemplateProduct = (): JSX.Element => {
+export const TemplateProduct = ({ id }): JSX.Element => {
+    console.log(id);
     return (
-        <Flex direction="column" minH="100vh">
-            <ProductDetails />
-        </Flex>
+        <>
+            <Header />
+            <Flex direction="column" minH="100vh">
+                <ProductDetails id={id} />
+            </Flex>
+        </>
     );
 };

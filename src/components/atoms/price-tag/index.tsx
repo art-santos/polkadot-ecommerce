@@ -38,7 +38,12 @@ export const PriceTag = ({
             <Box as="span" color="gray.200" fontSize="md">
                 <CurrencyIcon currency={currency} />
             </Box>
-            <CurrencyPrice size={size} exchange={exchange} price={price} />
+            <CurrencyPrice
+                currency={currency}
+                size={size}
+                exchange={exchange}
+                price={price}
+            />
             <CurrencyBadge currency={currency} />
         </Flex>
     );

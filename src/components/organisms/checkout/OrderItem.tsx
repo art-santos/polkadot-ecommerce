@@ -1,6 +1,6 @@
 import { Flex, Spinner, Text } from "@chakra-ui/react";
 import { PriceTag } from "@components/atoms/price-tag";
-import { useCurrencyPrice } from "@recoil/hooks";
+import { useCurrencyPrice } from "src/context/hooks";
 import * as React from "react";
 
 type OrderItemProps = {

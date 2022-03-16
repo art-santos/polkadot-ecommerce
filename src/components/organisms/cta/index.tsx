@@ -31,28 +31,9 @@ export const Cta = () => {
                     </Box>
                 </Heading>
                 <Text fontSize="lg" maxW="xl" mx="auto">
-                    Choose the product you want and pay with Polkadot Network tokens.
+                    Choose the product you want and pay with Polkadot Network
+                    tokens.
                 </Text>
-                <Stack
-                    direction={{ base: "column", sm: "row" }}
-                    mt="10"
-                    justify="center"
-                    spacing={{ base: "3", md: "5" }}
-                    maxW="md"
-                    mx="auto"
-                >
-                    <Button
-                        size="lg"
-                        bg="main.100"
-                        color="white"
-                        fontWeight="700"
-                        flex={{ md: "1" }}
-                        py="16px"
-                        px="20px"
-                    >
-                        Get Started Now
-                    </Button>
-                </Stack>
             </Box>
         </Box>
     );

@@ -1,4 +1,4 @@
-import { Flex, Box, chakra, Badge } from "@chakra-ui/react";
+import { Flex, Box } from "@chakra-ui/react";
 import Image from "next/image";
 import { Button } from "@components/atoms/button";
 import { PriceTag } from "@components/atoms/price-tag";
@@ -11,7 +11,7 @@ export const ProductCard = ({ product, price }): JSX.Element => {
     const router = useRouter();
 
     const handleCheckout = (id: string): void => {
-        cookies.set("item", id, { path: "/checkout" });
+        cookies.set("item", id, { path: "/" });
         router.push("/checkout");
     };
 
@@ -121,7 +121,7 @@ export const ProductCard = ({ product, price }): JSX.Element => {
                             as="a"
                             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                             //@ts-ignore
-                            href={`/product/${product.id}`}
+                            href={`/product?id=${product.id}`}
                             bg="black.100"
                             color="white"
                             fontWeight="700"

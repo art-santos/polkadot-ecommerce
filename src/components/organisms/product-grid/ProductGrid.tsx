@@ -19,6 +19,7 @@ export const ProductGrid = (props: SimpleGridProps): JSX.Element => {
             columns={columns}
             columnGap={{ base: "4", md: "6" }}
             rowGap={{ base: "0", md: "10" }}
+            p={5}
             {...props}
         />
     );

@@ -50,10 +50,10 @@
         "src/components/atoms/icons"
       ],
       "@recoil/*": [
-        "src/recoil/*"
+        "src/context/*"
       ],
       "@recoil": [
-        "src/recoil"
+        "src/context"
       ],
       "@test/*": [
         "test/*"
@@ -68,7 +68,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "src/context/contexts/filter/provider.js", "src/context/contexts/filter/provider.js"  ],
   "exclude": [
     "node_modules",
     "test/*",

@@ -31,6 +31,17 @@ export const Button: React.FC<IButton> = ({ ...rest }) => {
                     borderColor: "main.100",
                     borderWidth: "3px",
                 }}
+                _disabled={{
+                    opacity: 0.5,
+                    bg: "gray.200",
+                    borderColor: "gray.200",
+                    _hover: {
+                        bg: "gray.200",
+                        borderColor: "gray.200",
+                        color: "white",
+                        cursor: "not-allowed",
+                    },
+                }}
             />
         </div>
     );

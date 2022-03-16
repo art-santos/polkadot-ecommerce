@@ -1,9 +1,22 @@
 import { Text } from "@chakra-ui/react";
+import PriceContext from "src/context/contexts/priceContext";
+import React from "react";
 
 interface ICurrencyPriceProps {
     exchange: number;
+    currency: string;
     price: number;
-    size?: "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl" | "6xl";
+    size?:
+        | "sm"
+        | "md"
+        | "lg"
+        | "xl"
+        | "1xl"
+        | "2xl"
+        | "3xl"
+        | "4xl"
+        | "5xl"
+        | "6xl";
 }
 
 export const CurrencyPrice = ({

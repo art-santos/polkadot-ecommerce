@@ -8,42 +8,43 @@ import {
     VStack,
     Heading,
     SimpleGrid,
+    Spinner,
 } from "@chakra-ui/react";
 import { Button } from "@components/atoms/button";
 import { PriceTag } from "@components/atoms/price-tag";
-import { useCurrencyPrice, useProductInfo } from "@recoil/hooks";
-import { useRouter } from "next/router";
+import { useCurrencyPrice, useProductInfo } from "src/context/hooks";
 import Cookies from "universal-cookie";
+import { useRouter } from "next/router";
 
 const cookies = new Cookies();
 
-export default function ProductDetails() {
+export default function ProductDetails({ id }) {
     const { polkadot, kusama, loading, error } = useCurrencyPrice();
+    const {
+        product,
+        loading: loadingProduct,
+        error: errorProduct,
+    } = useProductInfo(id);
     const router = useRouter();
-
     //router get route
     const handleCheckout = (id: string): void => {
-        cookies.set("item", id, { path: "/checkout" });
+        cookies.set("item", id, { path: "/" });
         router.push("/checkout");
     };
 
-    if (loading) {
-        return <Box>Loading...</Box>;
+    if (loadingProduct) {
+        return <Loading />;
     }
-    if (error) {
+
+    if (loading) {
+        return <Loading />;
+    }
+
+    if (errorProduct) {
         return <Box>Error: {error}</Box>;
     }
 
-    if (router.query.id) {
-        console.log(router.query.id);
-        const id = router.query.id;
-        const {
-            product,
-            loading: loadingProduct,
-            error: errorProduct,
-        } = useProductInfo(id.toString());
-        console.log(product);
-
+    if (product) {
         return (
             <Container maxW={"7xl"}>
                 <SimpleGrid
@@ -135,5 +136,13 @@ export default function ProductDetails() {
             </Container>
         );
     }
-    return <Box>No product selected</Box>;
+    return <Loading />;
 }
+
+const Loading = () => {
+    return (
+        <Flex justify="center" align="center" h="100%" m="auto">
+            <Spinner size="xl" color="main.100" thickness="5px" />
+        </Flex>
+    );
+};
