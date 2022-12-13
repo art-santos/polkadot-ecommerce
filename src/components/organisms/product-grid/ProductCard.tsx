@@ -20,13 +20,14 @@ export const ProductCard = ({ product, price }): JSX.Element => {
             p={1}
             w="full"
             minW="100%"
-            maxW="100%"
+            maxW={["100%"]}
             alignItems="center"
             justifyContent="center"
         >
             <Box
                 bg="white"
-                maxW="sm"
+                maxW={["90%", "87%", "80%", "90%"]}
+                minW={["90%", "87%", "80%", "90%"]}
                 borderWidth="3px"
                 borderColor="gray.100"
                 rounded="lg"
